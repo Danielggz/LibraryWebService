@@ -12,13 +12,14 @@ import jakarta.ws.rs.GET;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PUT;
 import jakarta.enterprise.context.RequestScoped;
+import jakarta.ws.rs.core.MediaType;
 
 /**
  * REST Web Service
  *
  * @author Daniel García
  */
-@Path("generic")
+@Path("/home")
 @RequestScoped
 public class LibraryResource {
 
@@ -30,24 +31,11 @@ public class LibraryResource {
      */
     public LibraryResource() {
     }
-
-    /**
-     * Retrieves representation of an instance of com.mycompany.librarywebservice.LibraryResource
-     * @return an instance of java.lang.String
-     */
+    
     @GET
-    @Produces(jakarta.ws.rs.core.MediaType.APPLICATION_XML)
-    public String getXml() {
-        //TODO return proper representation object
-        throw new UnsupportedOperationException();
+    @Produces(MediaType.TEXT_PLAIN)
+    public String hello() {
+        return "Hello from library home!";
     }
 
-    /**
-     * PUT method for updating or creating an instance of LibraryResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(jakarta.ws.rs.core.MediaType.APPLICATION_XML)
-    public void putXml(String content) {
-    }
 }
