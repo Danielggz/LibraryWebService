@@ -13,8 +13,6 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PUT;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.core.MediaType;
-import com.mycompany.librarywebservice.Models.Library;
-import com.mycompany.librarywebservice.Models.Book;
 import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.QueryParam;
 import java.util.ArrayList;
