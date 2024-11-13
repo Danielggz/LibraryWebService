@@ -21,6 +21,6 @@
 
     <servlet-mapping>
         <servlet-name>jakarta.ws.rs.core.Application</servlet-name>
-        <url-pattern>/libraryAPI/*</url-pattern>
+        <url-pattern>/api/*</url-pattern>
     </servlet-mapping>
 </web-app>

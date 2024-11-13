@@ -13,15 +13,22 @@ import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PUT;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.ws.rs.core.MediaType;
+import com.mycompany.librarywebservice.Models.Library;
+import com.mycompany.librarywebservice.Models.Book;
+import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
+import java.util.ArrayList;
 
 /**
  * REST Web Service
  *
  * @author Daniel García
  */
-@Path("/home")
+@Path("/library")
 @RequestScoped
 public class LibraryResource {
+    
+    Library library = new Library();
 
     @Context
     private UriInfo context;
@@ -33,9 +40,49 @@ public class LibraryResource {
     }
     
     @GET
+    @Path("/isbn/{ISBN}")
     @Produces(MediaType.TEXT_PLAIN)
-    public String hello() {
-        return "Hello from library home!";
+    public String getBookByISBN(@PathParam("ISBN") String ISBN) {
+        Book b = library.searchBookISBN(ISBN);
+        if(b == null){
+            return "No book found with that ISBN";
+        }
+        return b.toString();
     }
-
+    
+    @GET
+    @Path("/title&year/{Title}/{Year}")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getBookByTitleYear(@PathParam("Title") String title, @PathParam("Year") String year) {
+        int yearNumb = 0;
+        String message = "";
+        try{
+            yearNumb = Integer.parseInt(year);
+        }catch(NumberFormatException e){
+            System.out.println(e.getMessage());
+        }
+        ArrayList<Book> foundBooks = library.searchBookTitleYear(title, yearNumb);
+        if(!foundBooks.isEmpty()){
+            for(Book b : foundBooks){
+                message += "\n" + b.toString();
+            }
+        }else{
+            message = "No books found";
+        }
+        return message;
+    }
+    
+    @GET
+    @Path("/Query")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String getBookByQuery(@QueryParam("isbn") String ISBN, @QueryParam("year") int year, @QueryParam("title") String title) {
+        return "ISBN: " + ISBN + " Year: " + year + " Title: " + title;
+    }
+    
+    @PUT
+    @Path("/asda")
+    @Produces(MediaType.TEXT_PLAIN)
+    public String updateData(){
+        return "";
+    }
 }
